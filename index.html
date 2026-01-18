@@ -49,7 +49,7 @@
         min-width:0;
       }
       .logoImg{
-        height:44px;
+        height:20px;
         width:auto;
         object-fit:contain;
         filter: grayscale(100%) brightness(1.15) contrast(1.05);
@@ -326,6 +326,32 @@
         .cards,.teamGrid{grid-template-columns:1fr;}
         .titleLine{white-space:normal;}
       }
+      /* ================= VIDEO STREAM FIX ================= */
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 320px;
+        background: #000;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      videoFeed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+      }
+      #overlay,
+      #drawLayer {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+      }
+
     </style>
   </head>
 
@@ -333,8 +359,11 @@
     <header>
       <div class="headerInner">
         <div class="brand">
-          <img src="holoray-logo.png" alt="HoloRay logo" class="logoImg" />
-          <div class="titleLine">MedVision (HoloTrack)</div>
+          <img
+            src="{{ url_for('static', filename='holoray-logo.png') }}"
+            alt="HoloRay logo"
+          />
+
         </div>
 
         <nav class="navLinks" aria-label="Navigation">
@@ -352,9 +381,7 @@
           <!-- VIDEO -->
           <div class="panel">
             <div class="stage" id="stage">
-              <video id="video" playsinline>
-                <source src="sample.mp4" type="video/mp4">
-              </video>
+              <img id="videoFeed" alt="Live video stream" />
               <canvas id="overlay"></canvas>
               <canvas id="drawLayer"></canvas>
             </div>
